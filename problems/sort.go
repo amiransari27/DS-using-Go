@@ -38,3 +38,21 @@ func BubbleSort2(arr []int) []int {
 
 	return arr
 }
+
+func SelectionSort(arr []int) []int {
+
+	for i := 0; i < len(arr); i++ {
+		small := i
+
+		for j := i; j < len(arr); j++ {
+			if arr[small] > arr[j] {
+				small = j
+			}
+		}
+		tmp := arr[i]
+		arr[i] = arr[small]
+		arr[small] = tmp
+	}
+
+	return arr
+}
