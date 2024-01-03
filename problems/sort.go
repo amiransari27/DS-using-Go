@@ -62,15 +62,108 @@ func InsertionSort(arr []int) []int {
 	for i := 1; i < len(arr); i++ {
 		j := i
 		for j > 0 {
-			if arr[i] < arr[i-1] {
-				tmp := arr[i-1]
-				arr[i-1] = arr[i]
-				arr[i] = tmp
+			if arr[j] < arr[j-1] {
+				tmp := arr[j-1]
+				arr[j-1] = arr[j]
+				arr[j] = tmp
 				j--
+			} else {
+				break
 			}
-			break
 		}
 	}
 
 	return arr
+}
+
+func QuickSort(arr []int) []int {
+	if len(arr) < 2 {
+		return arr
+	}
+
+	pivot := arr[len(arr)-1]
+	leftArr := []int{}
+	rightArr := []int{}
+
+	for i := 0; i < len(arr)-1; i++ {
+		if arr[i] > pivot {
+			rightArr = append(rightArr, arr[i])
+		} else {
+			leftArr = append(leftArr, arr[i])
+		}
+	}
+
+	left := QuickSort(leftArr)
+	right := QuickSort(rightArr)
+
+	res := []int{}
+	res = append(res, left...)
+	res = append(res, pivot)
+	res = append(res, right...)
+
+	return res
+}
+
+func QuickSort2(arr []int) []int {
+
+	quickSort(arr, 0, len(arr)-1)
+
+	return arr
+}
+
+func quickSort(arr []int, low int, high int) {
+	if low < high {
+		pi := partistion(arr, low, high)
+		quickSort(arr, low, pi-1)
+		quickSort(arr, pi+1, high)
+	}
+}
+
+func partistion(arr []int, low int, high int) int {
+
+	pivot := arr[high]
+	position := low - 1
+	for j := low; j < high; j++ {
+		if arr[j] < pivot {
+			position++
+			tmp := arr[position]
+			arr[position] = arr[j]
+			arr[j] = tmp
+		}
+	}
+	position++
+	tmp := arr[position]
+	arr[position] = pivot
+	arr[high] = tmp
+	return position
+}
+
+func MergeSort(arr []int) []int {
+	if len(arr) < 2 {
+		return arr
+	}
+
+	mid := len(arr) / 2
+	leftArr := append([]int{}, arr[:mid]...)
+	rigthArr := append([]int{}, arr[mid:]...)
+
+	left := MergeSort(leftArr)
+	right := MergeSort(rigthArr)
+	resArr := []int{}
+	for len(left) > 0 && len(right) > 0 {
+		var tmp int
+		if left[0] < right[0] {
+			tmp = left[0]
+			left = append([]int{}, left[1:]...)
+		} else {
+			tmp = right[0]
+			right = append([]int{}, right[1:]...)
+		}
+		resArr = append(resArr, tmp)
+	}
+
+	resArr = append(resArr, left...)
+	resArr = append(resArr, right...)
+
+	return resArr
 }
