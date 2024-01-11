@@ -5,7 +5,7 @@ func Convert(s string, numRows int) string {
 		return s
 	}
 
-	var result string = ""
+	result := []byte{}
 
 	for i := 0; i < numRows; i++ {
 		idx := i
@@ -14,7 +14,7 @@ func Convert(s string, numRows int) string {
 		driveToggle := true
 
 		for idx < len(s) {
-			result += string(s[idx])
+			result = append(result, s[idx])
 
 			if i == 0 {
 				idx += driveDown
@@ -31,6 +31,6 @@ func Convert(s string, numRows int) string {
 
 		}
 	}
-	return result
+	return string(result)
 
 }
