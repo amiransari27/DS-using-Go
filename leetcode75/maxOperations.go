@@ -1,4 +1,4 @@
-package leetcode
+package leetcode75
 
 import "slices"
 
