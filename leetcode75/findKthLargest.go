@@ -1,7 +1,22 @@
-package leetcode75
+func findKthLargest(nums []int, k int) int {
+	// return quickSelect(nums, 0, len(nums)-1, k)
+	// pq := make([]int, 0)
 
-func FindKthLargest(nums []int, k int) int {
-	return quickSelect(nums, 0, len(nums)-1, k)
+	// for _, val := range nums {
+	// 	pq = append(pq, val)
+	// 	slices.Sort(pq)
+
+	// 	if len(pq) > k {
+	// 		pq = pq[len(pq)-k:]
+	// 	}
+	// }
+
+	// return pq[0]
+
+    slices.Sort(nums)
+
+    return nums[len(nums)-k]
+
 }
 
 func quickSelect(nums []int, low int, high int, k int) int {
