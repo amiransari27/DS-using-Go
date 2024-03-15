@@ -30,3 +30,14 @@ func solveMinCostClimbingStairs(cost []int, i int, memo []int) int {
 	memo[i] = min(costOf1Step, costOf2Step)
 	return memo[i]
 }
+
+func MinCostClimbingStairsOptimized(cost []int) int {
+
+	cost = append(cost, 0)
+
+	for i := 2; i < len(cost); i++ {
+		cost[i] = cost[i] + min(cost[i-1], cost[i-2])
+	}
+
+	return cost[len(cost)-1]
+}
