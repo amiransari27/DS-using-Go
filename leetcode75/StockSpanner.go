@@ -6,22 +6,24 @@ type StockSpanner struct {
 
 func ConstructorStockSpanner() StockSpanner {
 	return StockSpanner{
-		stack: make([][]int, 1),
+		stack: make([][]int, 0),
 	}
 }
 
 func (ss *StockSpanner) Next(price int) int {
 
-	if len(ss.stack) > 0 {
-		top := ss.stack[len(ss.stack)-1]
-		for len(ss.stack) > 0 && top[0] < price {
+	span := 1
 
-		}
-	} else {
-		ss.stack = append(ss.stack, []int{price, 1})
+	for len(ss.stack) > 0 && ss.stack[len(ss.stack)-1][0] <= price {
+
+		span += ss.stack[len(ss.stack)-1][1]
+
+		ss.stack = ss.stack[:len(ss.stack)-1]
 	}
 
-	return 1
+	ss.stack = append(ss.stack, []int{price, span})
+
+	return span
 }
 
 /**
