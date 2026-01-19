@@ -1,33 +1,31 @@
 package top150
 
-import "strings"
-
-// e g g
-// a d d
-// test
 func IsIsomorphic(s string, t string) bool {
-	s = strings.Trim(s, "\u0000")
-	t = strings.Trim(t, "\u0000")
-	n := len(s)
+   if len(s) != len(t) {
+       return false
+   }
+   stMap := make(map[byte]byte)
+   tsMap := make(map[byte]byte)
 
-	if len(s) != len(t) {
-		return false
-	}
-	map_ := make(map[byte]byte)
-	_map := make(map[byte]byte)
+   for i := 0; i < len(s); i++ {
 
-	for i := 0; i < n; i++ {
-		chr1 := s[i]
-		chr2 := t[i]
+       ch1 := s[i]
+       ch2 := t[i]
 
-		if (map_[chr1] != 0 && map_[chr1] != chr2) ||
-			(_map[chr2] != 0 && _map[chr2] != chr1) {
-			return false
-		}
+       _, existCh1 := stMap[ch1]
+       _, existCh2 := tsMap[ch2]
 
-		map_[chr1] = chr2
-		_map[chr2] = chr1
-	}
+       if (existCh1 && stMap[ch1] != ch2) || (existCh2 && tsMap[ch2] != ch1) {
+           return false
+       }
 
-	return true
+       stMap[ch1] = ch2
+       tsMap[ch2] = ch1
+   }
+
+   return true
 }
+
+
+
+
