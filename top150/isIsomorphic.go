@@ -4,6 +4,7 @@ import "strings"
 
 // e g g
 // a d d
+// test
 func IsIsomorphic(s string, t string) bool {
 	s = strings.Trim(s, "\u0000")
 	t = strings.Trim(t, "\u0000")
