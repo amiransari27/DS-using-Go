@@ -36,6 +36,7 @@ func TestSolveBU(t *testing.T) {
 		{"Single", []int{0, 5}, 5},
 		{"Example1", []int{0, 1, 2, 3, 1}, 4},
 		{"Example2", []int{0, 2, 7, 9, 3, 1}, 12},
+		{"Example3", []int{1, 2, 3, 1}, 4},
 		{"Two", []int{0, 2, 1}, 2},
 	}
 

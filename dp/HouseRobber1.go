@@ -36,14 +36,14 @@ func solveBU(nums []int) int {
 		return nums[0]
 	}
 
-	t := make([]int, n)
+	t := make([]int, n+1)
 
 	t[0] = nums[0]
-	t[1] = max(nums[0], nums[1])
+	t[1] = nums[0]
 
-	for i := 2; i < n; i++ {
-		t[i] = max(nums[i]+t[i-2], t[i-1])
+	for i := 2; i < n+1; i++ {
+		t[i] = max(nums[i-1]+t[i-2], t[i-1])
 	}
 
-	return t[n-1]
+	return t[n]
 }
