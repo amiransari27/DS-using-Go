@@ -49,3 +49,27 @@ func TestSolveBU(t *testing.T) {
 		})
 	}
 }
+
+func TestSolveRobConstSpace(t *testing.T) {
+	tests := []struct {
+		name     string
+		nums     []int
+		expected int
+	}{
+		{"Empty", []int{}, 0},
+		{"Single", []int{5}, 5},
+		{"Two", []int{2, 1}, 2},
+		{"Example1", []int{1, 2, 3, 1}, 4},
+		{"Example2", []int{2, 7, 9, 3, 1}, 12},
+		{"Duplicates", []int{2, 2, 2, 2}, 4},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := solveRobConstSpace(tt.nums)
+			if got != tt.expected {
+				t.Fatalf("solveRobConstSpace(%v) = %d; want %d", tt.nums, got, tt.expected)
+			}
+		})
+	}
+}

@@ -47,3 +47,28 @@ func solveBU(nums []int) int {
 
 	return t[n]
 }
+
+func solveRobConstSpace(nums []int) int {
+	n := len(nums)
+
+	if n == 0 {
+		return 0
+	}
+	if n == 1 {
+		return nums[0]
+	}
+
+	pp := nums[0]
+	p := max(nums[0], nums[1])
+
+	for i := 2; i < n; i++ {
+		not_steal := p
+		steal := nums[i] + pp
+
+		tmp := max(not_steal, steal)
+		pp = p
+		p = tmp
+	}
+
+	return p
+}
