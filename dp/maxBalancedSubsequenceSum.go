@@ -46,3 +46,35 @@ func solveMaxBalancedSubsequenceSum(i int, pi int, nums []int, memo map[[2]int]i
 
 	return max(take, not_take)
 }
+
+func maxBalancedSubsequenceSumBU(nums []int) int64 {
+	maxVal := int64(math.MinInt)
+
+	for _, v := range nums {
+		maxVal = max(maxVal, int64(v))
+	}
+	if maxVal <= 0 {
+		return maxVal
+	}
+
+	var result int64 = math.MinInt64
+	n := len(nums)
+
+	t := make([]int64, n)
+
+	for i := 0; i < n; i++ {
+		// Base case: take just nums[i] by itself
+		t[i] = int64(nums[i])
+		result = max(result, t[i])
+
+		// Try extending from previous elements that satisfy the condition
+		for j := 0; j < i; j++ {
+			if nums[i]-i >= nums[j]-j {
+				t[i] = max(t[i], t[j]+int64(nums[i]))
+				result = max(result, t[i])
+			}
+		}
+	}
+
+	return result
+}
