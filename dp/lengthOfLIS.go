@@ -1,5 +1,7 @@
 package dp
 
+import "github.com/amiransari27/DS-using-Go/utils"
+
 func LengthOfLIS(nums []int) int {
 
 	t := make([][]int, len(nums)+1)
@@ -63,4 +65,20 @@ func LengthOfLISBU(nums []int) int {
 	}
 
 	return result
+}
+
+func LengthOfLISPatientSort(nums []int) int {
+
+	sortedArry := make([]int, 0)
+
+	for _, v := range nums {
+		found := utils.LowerBound(sortedArry, v)
+
+		if found == len(sortedArry) {
+			sortedArry = append(sortedArry, v)
+		} else {
+			sortedArry[found] = v
+		}
+	}
+	return len(sortedArry)
 }
