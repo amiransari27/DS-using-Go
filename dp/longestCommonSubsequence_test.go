@@ -63,3 +63,34 @@ func TestLongestCommonSubsequenceBU(t *testing.T) {
 		})
 	}
 }
+
+func TestLongestCommonSubsequenceStringBU(t *testing.T) {
+	tests := []struct {
+		name     string
+		text1    string
+		text2    string
+		expected string
+	}{
+		{"Both empty", "", "", ""},
+		{"First empty", "", "abc", ""},
+		{"Second empty", "abc", "", ""},
+		{"Identical", "abc", "abc", "abc"},
+		{"No common", "abc", "def", ""},
+		{"Example1", "abcde", "ace", "ace"},
+		{"Repeats", "aaaa", "aa", "aa"},
+		{"Interleaved", "abac", "cab", "ab"},
+		{"Single char", "a", "a", "a"},
+		{"Single char no match", "a", "b", ""},
+		{"LeetCode example1", "ox", "cow", "o"},
+		{"Partial overlap", "AGGTAB", "GXTXAYB", "GTAB"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := longestCommonSubsequenceStringBU(tt.text1, tt.text2)
+			if got != tt.expected {
+				t.Fatalf("longestCommonSubsequenceStringBU(%q, %q) = %q; want %q", tt.text1, tt.text2, got, tt.expected)
+			}
+		})
+	}
+}
