@@ -15,30 +15,26 @@ func solveNQueens(n int) [][]string {
 			board[i][j] = '.'
 		}
 	}
+
+	colMap := make(map[int]bool)
+	diaRightUp := make(map[int]bool)
+	diaLeftUp := make(map[int]bool)
+
 	//isvalid
 	var isValid func(int, int) bool
 
 	isValid = func(row, col int) bool {
 
-		// row
-		for i := 0; i < row; i++ {
-			if board[i][col] == 'Q' {
-				return false
-			}
+		if exist := colMap[col]; exist {
+			return false
 		}
 
-		// diagonal left-up
-		for i, j := row-1, col-1; i >= 0 && j >= 0; i, j = i-1, j-1 {
-			if board[i][j] == 'Q' {
-				return false
-			}
+		if exist := diaRightUp[row+col]; exist {
+			return false
 		}
 
-		// diagonal right-up
-		for i, j := row-1, col+1; i >= 0 && j < n; i, j = i-1, j+1 {
-			if board[i][j] == 'Q' {
-				return false
-			}
+		if exist := diaLeftUp[row-col]; exist {
+			return false
 		}
 
 		return true
@@ -56,13 +52,21 @@ func solveNQueens(n int) [][]string {
 			}
 
 			res = append(res, sol)
+
+			return
 		}
 
 		for col := 0; col < n; col++ {
 			if isValid(row, col) {
+				colMap[col] = true
+				diaRightUp[row+col] = true
+				diaLeftUp[row-col] = true
 				board[row][col] = 'Q'
 				dfs(row + 1)
 				board[row][col] = '.'
+				colMap[col] = false
+				diaRightUp[row+col] = false
+				diaLeftUp[row-col] = false
 			}
 		}
 
