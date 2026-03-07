@@ -59,3 +59,71 @@ func shortestCommonSupersequenceBU(str1 string, str2 string) int {
 
 	return t[m][n]
 }
+
+func shortestCommonSupersequenceStrBU(str1 string, str2 string) string {
+	m := len(str1)
+	n := len(str2)
+
+	// Handle empty cases early
+	if m == 0 {
+		return str2
+	}
+	if n == 0 {
+		return str1
+	}
+
+	// use (m+1)x(n+1) table to handle empty prefixes
+	t := make([][]int, m+1)
+	for i := range t {
+		t[i] = make([]int, n+1)
+	}
+
+	for i := 0; i <= m; i++ {
+		for j := 0; j <= n; j++ {
+			if i == 0 || j == 0 {
+				t[i][j] = i + j
+			} else if str1[i-1] == str2[j-1] {
+				t[i][j] = 1 + t[i-1][j-1]
+			} else {
+				t[i][j] = 1 + min(t[i-1][j], t[i][j-1])
+			}
+		}
+	}
+
+	i := m
+	j := n
+	var scs = make([]byte, t[m][n])
+	k := t[m][n] - 1
+	for i > 0 && j > 0 {
+
+		if str1[i-1] == str2[j-1] {
+			scs[k] = str1[i-1]
+			i--
+			j--
+		} else {
+			if t[i-1][j] < t[i][j-1] {
+				scs[k] = str1[i-1]
+				i--
+			} else {
+				scs[k] = str2[j-1]
+				j--
+			}
+		}
+		k--
+	}
+
+	for i > 0 {
+
+		scs[k] = str1[i-1]
+		k--
+		i--
+	}
+
+	for j > 0 {
+
+		scs[k] = str2[j-1]
+		j--
+	}
+
+	return string(scs)
+}
