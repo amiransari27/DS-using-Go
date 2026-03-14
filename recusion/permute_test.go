@@ -164,6 +164,70 @@ func TestPermuteLengths(t *testing.T) {
 	}
 }
 
+func permutationFreq(perms [][]int) map[string]int {
+	freq := make(map[string]int, len(perms))
+	for _, p := range perms {
+		freq[fmt.Sprintf("%v", p)]++
+	}
+	return freq
+}
+
+func TestPermuteUnique(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    []int
+		expected [][]int
+	}{
+		{
+			name:  "empty input",
+			input: []int{},
+			expected: [][]int{
+				{},
+			},
+		},
+		{
+			name:  "all unique values",
+			input: []int{1, 2, 3},
+			expected: [][]int{
+				{1, 2, 3},
+				{1, 3, 2},
+				{2, 1, 3},
+				{2, 3, 1},
+				{3, 1, 2},
+				{3, 2, 1},
+			},
+		},
+		{
+			name:  "contains duplicates",
+			input: []int{1, 1, 2},
+			expected: [][]int{
+				{1, 1, 2},
+				{1, 2, 1},
+				{2, 1, 1},
+			},
+		},
+		{
+			name:  "all duplicates",
+			input: []int{2, 2, 2},
+			expected: [][]int{
+				{2, 2, 2},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := permuteUnique(tt.input)
+			gotFreq := permutationFreq(got)
+			expectedFreq := permutationFreq(tt.expected)
+
+			if !reflect.DeepEqual(gotFreq, expectedFreq) {
+				t.Errorf("input=%v\nexpected=%v\ngot=%v", tt.input, tt.expected, got)
+			}
+		})
+	}
+}
+
 func factorial(n int) int {
 	if n <= 1 {
 		return 1

@@ -1,37 +1,30 @@
 package recusion
 
 func permute(nums []int) [][]int {
-
 	result := make([][]int, 0)
+	temp := make([]int, 0, len(nums))
+	used := make([]bool, len(nums))
 
-	var solve func(temp *[]int, st *map[int]bool)
-
-	solve = func(temp *[]int, st *map[int]bool) {
-
-		if len(*temp) == len(nums) {
-			result = append(result, append([]int{}, *temp...))
+	var solve func()
+	solve = func() {
+		if len(temp) == len(nums) {
+			result = append(result, append([]int{}, temp...))
 			return
 		}
 
-		for _, v := range nums {
-
-			if isTrue := (*st)[v]; !isTrue {
-
-				(*temp) = append((*temp), v)
-				(*st)[v] = true
-				solve(temp, st)
-
-				(*temp) = (*temp)[:len(*temp)-1]
-				(*st)[v] = false
-
+		for i, v := range nums {
+			if used[i] {
+				continue
 			}
 
+			temp = append(temp, v)
+			used[i] = true
+			solve()
+			used[i] = false
+			temp = temp[:len(temp)-1]
 		}
 	}
 
-	temp := make([]int, 0)
-	st := make(map[int]bool)
-	solve(&temp, &st)
-
+	solve()
 	return result
 }
