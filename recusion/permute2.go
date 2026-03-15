@@ -36,3 +36,35 @@ func permuteUnique(nums []int) [][]int {
 
 	return result
 }
+
+func permuteUniqueSwap(nums []int) [][]int {
+
+	result := make([][]int, 0)
+
+	var solve func(idx int)
+
+	solve = func(idx int) {
+
+		if idx == len(nums) {
+			result = append(result, append([]int{}, nums...))
+			return
+		}
+
+		used := make(map[int]bool)
+		for i := idx; i < len(nums); i++ {
+			candidate := nums[i]
+			if used[candidate] {
+				continue
+			}
+			used[candidate] = true
+			nums[i], nums[idx] = nums[idx], nums[i]
+			solve(idx + 1)
+			nums[i], nums[idx] = nums[idx], nums[i]
+		}
+
+	}
+
+	solve(0)
+
+	return result
+}
