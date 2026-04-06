@@ -40,3 +40,26 @@ func canCompleteCircuit(gas []int, cost []int) int {
 
 	return -1
 }
+
+func canCompleteCircuit2(gas []int, cost []int) int {
+
+	totalDiff, feul, index := 0, 0, 0
+
+	for i := 0; i < len(gas); i++ {
+		diff := gas[i] - cost[i]
+
+		totalDiff += diff
+		feul += diff
+
+		if feul < 0 {
+			index = i + 1
+			feul = 0
+		}
+	}
+
+	if totalDiff < 0 {
+		return -1
+	}
+
+	return index
+}
