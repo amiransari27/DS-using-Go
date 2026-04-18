@@ -1,13 +1,16 @@
 package main
 
 import (
-	"fmt"
+	"github.com/amiransari27/DS-using-Go/utils"
 )
 
 func main() {
 
-	fmt.Println("Main function")
+	// fmt.Println("Main function")
 	// abbreviations.ExeRecursion()
 	// nqueen.ExecuteNquee()
 	// diffarray.GetModifiedArray(5,)
+
+	utils.StartWorker()
+
 }
