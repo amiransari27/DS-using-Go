@@ -1,3 +1,5 @@
+package top150i
+
 func reverse(nums []int, start int, end int) {
 
 	for start < end {
@@ -23,4 +25,4 @@ func rotate(nums []int, k int) {
 
 	//reverse from  k to len -q
 	reverse(nums, k, len(nums)-1)
-} 
+}
