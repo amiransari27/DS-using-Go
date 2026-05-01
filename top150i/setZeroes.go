@@ -65,3 +65,57 @@ func setZeroes2(matrix [][]int) {
 	}
 
 }
+
+func setZeroes3(matrix [][]int) {
+
+	m := len(matrix)
+	n := len(matrix[0])
+	firstRowImpacted := false
+	firstColImpacted := false
+
+	// check first row is impcated
+	for col := 0; col < n; col++ {
+		if matrix[0][col] == 0 {
+			firstRowImpacted = true
+			break
+		}
+	}
+
+	// check first col is impcated
+	for row := 0; row < m; row++ {
+		if matrix[row][0] == 0 {
+			firstColImpacted = true
+			break
+		}
+	}
+
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
+			if matrix[i][j] == 0 {
+				matrix[0][j] = 0
+				matrix[i][0] = 0
+			}
+		}
+	}
+
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
+			if matrix[0][j] == 0 || matrix[i][0] == 0 {
+				matrix[i][j] = 0
+			}
+		}
+	}
+
+	if firstColImpacted {
+		for row := 0; row < m; row++ {
+			matrix[row][0] = 0
+		}
+	}
+
+	if firstRowImpacted {
+		for col := 0; col < n; col++ {
+			matrix[0][col] = 0
+		}
+	}
+
+}
