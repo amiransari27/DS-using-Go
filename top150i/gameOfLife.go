@@ -27,57 +27,26 @@ func gameOfLife(board [][]int) {
 
 func isAlive(board [][]int, i int, j int, m int, n int) bool {
 	liveNeighbors := 0
-	// 1st element
-	if isValidCell(i-1, j-1, m, n) {
-		liveNeighbors += board[i-1][j-1]
+	// Check all 8 neighbors
+	directions := [8][2]int{
+		{-1, -1}, {-1, 0}, {-1, 1},
+		{0, -1}, {0, 1},
+		{1, -1}, {1, 0}, {1, 1},
 	}
-	// 2nd element
-	if isValidCell(i-1, j, m, n) {
-		liveNeighbors += board[i-1][j]
-	}
-	// 3rd  element
-	if isValidCell(i-1, j+1, m, n) {
-		liveNeighbors += board[i-1][j+1]
-	}
-	// 4th  element
-	if isValidCell(i, j+1, m, n) {
-		liveNeighbors += board[i][j+1]
-	}
-	// 5th  element
-	if isValidCell(i+1, j+1, m, n) {
-		liveNeighbors += board[i+1][j+1]
-	}
-	// 6th  element
-	if isValidCell(i+1, j, m, n) {
-		liveNeighbors += board[i+1][j]
-	}
-	// 7th  element
-	if isValidCell(i+1, j-1, m, n) {
-		liveNeighbors += board[i+1][j-1]
+	for _, dir := range directions {
+		ni, nj := i+dir[0], j+dir[1]
+		if isValidCell(ni, nj, m, n) {
+			liveNeighbors += board[ni][nj]
+		}
 	}
 
-	// 8th  element
-	if isValidCell(i, j-1, m, n) {
-		liveNeighbors += board[i][j-1]
-	}
-
+	// A live cell survives with 2-3 neighbors; a dead cell becomes alive with 3 neighbors
 	if board[i][j] == 1 {
-		if liveNeighbors >= 2 && liveNeighbors <= 3 {
-			return true
-		}
+		return liveNeighbors >= 2 && liveNeighbors <= 3
 	}
-	if board[i][j] == 0 {
-		if liveNeighbors == 3 {
-			return true
-		}
-	}
-
-	return false
+	return liveNeighbors == 3
 }
 
 func isValidCell(i int, j int, m int, n int) bool {
-	if i >= 0 && j >= 0 && i < m && j < n {
-		return true
-	}
-	return false
+	return i >= 0 && j >= 0 && i < m && j < n
 }
