@@ -20,3 +20,19 @@ func twoSum(numbers []int, target int) []int {
 
 	return res
 }
+
+func twoSum2(nums []int, target int) []int {
+	numsMap := make(map[int]int)
+
+	for i := 0; i < len(nums); i++ {
+		re := target - nums[i]
+
+		if j, exist := numsMap[re]; exist {
+			return []int{j, i}
+		} else {
+			numsMap[nums[i]] = i
+		}
+	}
+
+	return []int{}
+}
