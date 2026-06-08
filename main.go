@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/amiransari27/DS-using-Go/utils"
+	"github.com/amiransari27/DS-using-Go/trickque"
 )
 
 func main() {
@@ -11,6 +11,8 @@ func main() {
 	// nqueen.ExecuteNquee()
 	// diffarray.GetModifiedArray(5,)
 
-	utils.StartWorker()
+	// utils.StartWorker()
+
+	trickque.FanOutAndIn()
 
 }
